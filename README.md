@@ -71,4 +71,5 @@ Connected mode is quite useful for when you're making single, terminating polyli
 #### Point System
 *To be detailed at a later stage.*
 ### Other/Remarks
+Points marked in white are points not on the current layer, while points marked in green are on the current layer.
 There might be some bugs, so feel free to report some to me (EasternGamer#0001).
