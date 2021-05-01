@@ -38,7 +38,7 @@ Once you've used up all your adjustors, or however many were needed to form your
 >If you have connected mode enabled, the final point will connect back to the first point.
 If you have mirrored mode enabled, the points you placed down will be mirrored on another layer.
 If you have both enabled, the connected mode will be applied on the second layer as well.
-If you have line mode enabled, it will select every two adjustors and create a new layer of it. If you have mirror mode anbled with that, you will create two layers each single line you make out of adjustors. **Keep in mind to use as few of these as possible.**
+If you have line mode enabled, it will select every two adjustors and create a new layer of it. If you have mirror mode anbled with that, you will create two layers each single line you make out of adjustors.
 
 When working with the bottom of a ship, you have two choices.
 
@@ -47,12 +47,12 @@ When working with the bottom of a ship, you have two choices.
 
 The reason for these limitations might be addressed in the future, though.
 
+**Bonus:** You can zoom in and out with your scroll wheel 
+
 ### Mirror Mode
 Just because Dual Universe doesn't support mirroring doesn't mean I won't! Mirroring is just as it says. It will mirror it along the Y-Axis, in other words flipping the X-axis. This halves your potential work if your ship is symmetrical.
 
-To enable or disable it, simply use the ALT-3. 
-
-However, keep in mind this creates two layers, i.e., two polyline objects. This means it can be less performant than if you were to just do it one layer at a time.
+To enable or disable it, simply use the ALT-3.
 
 Deleting when mirrored mode is enabled deletes the last point on both the current and previous layer. Be careful when doing this because there is no "undo" button *yet*.
 
@@ -63,13 +63,45 @@ Mirror mode does what mirror mode does and duplicates them with a negative X val
 Use this sparingly since this has a much larger hit on performance, especially when paired with mirrored mode. But don't be too scared to use it. The primary purpose would be for where a path doesn't quite work out or you try avoid doubling over on already made points. It's really up to you how you use this.
 
 ### Connected Mode
-Connected mode is quite useful for when you're making single, terminating polyline objects. Generally, you would not use this with mirroring, however, it can be useful where you have a single object, like a hex or cube, where the final point would be your start point. Normally, without this mode, you would need to add all the points but the final point and then remove all the adjustors and place one adjustor on the first/last point to connect it. However, this simply removes that whole step which can be a major time waster.
+Connected mode is quite useful for when you're making single, terminating line. Generally, you would not use this with mirroring, however, it can be useful where you have a single object, like a hex or cube, where the final point would be your start point. Normally, without this mode, you would need to add all the points but the final point and then remove all the adjustors and place one adjustor on the first/last point to connect it. However, this simply removes that whole step which can be a major time waster.
 
 ### Technicals
 #### Projection System
-*To be detailed at a later stage.*
+The projection system is a fully simulated, perspective, projection model. It uses three matrices to create a model of your ship in 3D space.
+Currently, it has been shown to effortlessly simulate up to 2400 points, and display them, at once before CPU overload. (Roughly 620 layers)
+
+The projection system, by default, takes in your camera's position, heading, roll and pitch, as well as the model's heading, roll and pitch. (No model position currently, however that is discussed soon)
+
+Using that, it creates two matrices, the view and model matrices, the camera and ship matrices, respectively. These "matrices" are just tables for efficiency sake. (3x3 for ship and 4x3 for camera)
+
+The third matrix is a static one which we use to transform it into a perspective view. We only deal with two values in the 4x4 matrix.
+
+In the projection function, we localize all the matrix values that we'll frequently be using multiply with. Note that, in theory, the multiplication is of the transposed matrix, but since we're looking for the best possible performance, we do the entire multiplication by manually, reducing the need of transposal of an array.
+The values are multiplied by the point's "x", "y" and "z" value to produce a translated "x" and "y" value. The "w" value is used to see if the point is even in our view (aka, behind the camera) and if it isn't, then it won't add it.
+
 #### Point System
-*To be detailed at a later stage.*
+The point system is relatively basic, it's just an array of layers, where layers are an array of points, where a point is an array of x, y, and z.
+It looks like this:
+    Object {
+       Layer 1 {
+         Point 1 {
+            x, y, z
+         },
+         Point 2 {
+            x, y, z
+         }
+       },
+       Layer 2 {
+         Point 1 {
+            x, y, z
+         },
+         Point 2 {
+            x, y, z
+         }
+       }
+    }
+This will produce two lines between those x, y and z points. Each "layer" is a single "polyline" object, but I've used a single path, technically speaking.
+
 ### Other/Remarks
 Points marked in white are points not on the current layer, while points marked in green are on the current layer.
 There might be some bugs, so feel free to report some to me (EasternGamer#0001).
