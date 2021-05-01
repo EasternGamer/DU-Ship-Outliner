@@ -2,6 +2,8 @@
 
 This is a "simple" script to enable real-time creation of a ship model in an accessible and easy manor. The goal is to enable anyone to create "exportable" versions of their ship designs. 
 
+Heavily optimized with the help of Elias Villd and his [script](https://github.com/EliasVilld/du-logger), with it intergrated to help with understanding the performance issues.
+
 ## Setup
 
 It is recommended you watch the tutorial video [here](notyetdone), but since that's not always possible,  I'll also have a written version.
