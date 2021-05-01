@@ -82,6 +82,7 @@ The values are multiplied by the point's "x", "y" and "z" value to produce a tra
 #### Point System
 The point system is relatively basic, it's just an array of layers, where layers are an array of points, where a point is an array of x, y, and z.
 It looks like this:
+
     Object {
        Layer 1 {
          Point 1 {
@@ -100,6 +101,8 @@ It looks like this:
          }
        }
     }
+    
+
 This will produce two lines between those x, y and z points. Each "layer" is a single "polyline" object, but I've used a single path, technically speaking.
 
 ### Other/Remarks
