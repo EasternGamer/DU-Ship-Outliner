@@ -85,7 +85,7 @@ The values are multiplied by the point's "x", "y" and "z" value to produce a tra
 The point system is relatively basic, it's just an array of layers, where layers are an array of points, where a point is an array of x, y, and z.
 It looks like this:
 
-    Object {
+    Ship {
        Layer 1 {
          Point 1 {
             x, y, z
