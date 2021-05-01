@@ -67,8 +67,8 @@ Use this sparingly since this has a much larger hit on performance, especially w
 ### Connected Mode
 Connected mode is quite useful for when you're making single, terminating line. Generally, you would not use this with mirroring, however, it can be useful where you have a single object, like a hex or cube, where the final point would be your start point. Normally, without this mode, you would need to add all the points but the final point and then remove all the adjustors and place one adjustor on the first/last point to connect it. However, this simply removes that whole step which can be a major time waster.
 
-### Technicals
-#### Projection System
+# Technicals
+### Projection System
 The projection system is a fully simulated, perspective, projection model. It uses three matrices to create a model of your ship in 3D space.
 Currently, it has been shown to effortlessly simulate up to 2400 points, and display them, at once before CPU overload. (Roughly 620 layers)
 
@@ -81,7 +81,7 @@ The third matrix is a static one which we use to transform it into a perspective
 In the projection function, we localize all the matrix values that we'll frequently be using multiply with. Note that, in theory, the multiplication is of the transposed matrix, but since we're looking for the best possible performance, we do the entire multiplication by manually, reducing the need of transposal of an array.
 The values are multiplied by the point's "x", "y" and "z" value to produce a translated "x" and "y" value. The "w" value is used to see if the point is even in our view (aka, behind the camera) and if it isn't, then it won't add it.
 
-#### Point System
+### Point System
 The point system is relatively basic, it's just an array of layers, where layers are an array of points, where a point is an array of x, y, and z.
 It looks like this:
 
@@ -107,6 +107,6 @@ It looks like this:
 
 This will produce two lines between those x, y and z points. Each "layer" is a single "polyline" object, but I've used a single path, technically speaking.
 
-### Other/Remarks
+# Other/Remarks
 Points marked in white are points not on the current layer, while points marked in green are on the current layer.
 There might be some bugs, so feel free to report some to me (EasternGamer#0001).
